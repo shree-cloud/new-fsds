@@ -1,4 +1,3 @@
-# 4 . Write a program to fetch a record via api
 # 5 . All the above questions you have to answer for mongo db as well .
 
 from flask import Flask, request, jsonify
