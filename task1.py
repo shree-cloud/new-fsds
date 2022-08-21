@@ -1,6 +1,3 @@
-# 1 . Write a program to insert a record in sql table via api database
-# 2.  Write a program to update a record via api
-# 3 . Write a program to delete a record via api
 # 4 . Write a program to fetch a record via api
 # 5 . All the above questions you have to answer for mongo db as well .
 
@@ -16,13 +13,48 @@ cursor.execute("create table if not exists shree.ineuron(name varchar(30), numbe
 
 
 
-# @app.route('/abc',methods=['GET','POST'])
-# def test1():
-#     if(request.method=='POST'):
-#
-#
-# if __name__=='__main__':
-#     app.run()
+# 1 . Write a program to insert a record in sql table via api database
+@app.route('/insert',methods=['POST'])
+def insert():
+    if(request.method=='POST'):
+        name = request.json['name']
+        number = request.json['number']
+        cursor.execute("insert into shree.ineuron values(%s, %s)",(name, number))
+        mydb.commit()
+        return jsonify(str('succesfully inserted'))
+
+
+# 2.  Write a program to update a record via api
+@app.route("/update",methods=['POST'])
+def update():
+    if request.method=='POST':
+        get_name = request.json['get_name']
+        cursor.execute("update shree.ineuron set number = number+500 where name = %s", (get_name,))
+        mydb.commit()
+        return jsonify(str('update successful'))
+
+
+# 3 . Write a program to delete a record via api
+@app.route("/delete",methods=['POST'])
+def delete():
+    if request.method == 'POST':
+        name_del = request.json['name_del']
+        cursor.execute("delete from shree.ineuron where name = %s",(name_del,))
+        mydb.commit()
+        return jsonify(str("delete successful"))
+
+
+# 4 . Write a program to fetch a record via api
+@app.route("/fetch",methods = ['POST','GET'])
+def fetch_data():
+    cursor.execute("select * from shree.ineuron")
+    l = []
+    for i in cursor.fetchall():
+        l.append(i)
+    return jsonify(str(l))
+
+if __name__=='__main__':
+    app.run()
 
 
 
