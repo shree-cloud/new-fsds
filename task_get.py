@@ -1,6 +1,6 @@
 import mysql.connector as conn
 
-mydb = conn.connect(host = "localhost" , user ="root" , passwd = "haonabhai" )
+mydb = conn.connect(host="localhost", user="root", passwd="haonabhai" )
 cursor = mydb.cursor()
 cursor.execute("create database if not exists shree")
 cursor.execute("create table if not exists shree.ineuron(name varchar(30), number int)")
